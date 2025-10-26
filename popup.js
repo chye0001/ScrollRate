@@ -45,19 +45,19 @@ function setupEventListeners() {
   // Toggle listeners
   document.getElementById('imdbEnabled').addEventListener('change', (e) => {
     chrome.storage.sync.set({ imdbEnabled: e.target.checked });
-    showMessage('Settings saved!');
+    // showMessage('Settings saved!');
   });
   
   document.getElementById('rottenTomatoesEnabled').addEventListener('change', (e) => {
     chrome.storage.sync.set({ rottenTomatoesEnabled: e.target.checked });
-    showMessage('Settings saved!');
+    // showMessage('Settings saved!');
   });
   
   // Dark mode listener
   document.getElementById('darkModeEnabled').addEventListener('change', (e) => {
     chrome.storage.sync.set({ darkModeEnabled: e.target.checked });
     document.body.classList.toggle('dark-mode', e.target.checked);
-    showMessage('Settings saved!');
+    // showMessage('Settings saved!');
   });
   
   // Badge size listeners
@@ -68,7 +68,7 @@ function setupEventListeners() {
       
       const size = option.getAttribute('data-size');
       chrome.storage.sync.set({ badgeSize: size });
-      showMessage('Settings saved!');
+      // showMessage('Settings saved!');
     });
   });
   
@@ -82,27 +82,34 @@ function setupEventListeners() {
     chrome.storage.sync.set({ badgeTransparency: parseInt(value) });
   });
   
+
+//-----------------------------------------------------------------------------------------
+// API Key Section: Commented out for now as API key is already set in config.js 
+// If you want to add it back, uncomment this section and the section in popup.html:404.
+//-----------------------------------------------------------------------------------------
+
   // API key listener
-  let apiKeyTimeout;
-  document.getElementById('apiKeyInput').addEventListener('input', (e) => {
-    clearTimeout(apiKeyTimeout);
-    apiKeyTimeout = setTimeout(() => {
-      const apiKey = e.target.value.trim();
-      if (apiKey) {
-        chrome.storage.sync.set({ omdbApiKey: apiKey });
-        showMessage('API key saved!');
-      }
-    }, 500);
-  });
+  // let apiKeyTimeout;
+  // document.getElementById('apiKeyInput').addEventListener('input', (e) => {
+  //   clearTimeout(apiKeyTimeout);
+  //   apiKeyTimeout = setTimeout(() => {
+  //     const apiKey = e.target.value.trim();
+  //     if (apiKey) {
+  //       chrome.storage.sync.set({ omdbApiKey: apiKey });
+  //       showMessage('API key saved!');
+  //     }
+  //   }, 500);
+  // });
 }
 
-function showMessage(text) {
-  const statusMessage = document.getElementById('statusMessage');
-  statusMessage.textContent = text;
-  statusMessage.classList.add('show');
+// function showMessage(text) {
+//   const statusMessage = document.getElementById('statusMessage');
+//   statusMessage.textContent = text;
+//   statusMessage.classList.add('show');
   
-  setTimeout(() => {
-    statusMessage.classList.remove('show');
-  }, 2000);
-}
+//   setTimeout(() => {
+//     statusMessage.classList.remove('show');
+//   }, 2000);
+// }
 
+//-----------------------------------------------------------------------------------------
