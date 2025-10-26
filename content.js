@@ -115,8 +115,13 @@ class MovieRatingRenderer {
   }
 
   isMovieContainer(element) {
-    const className = element.className?.toLowerCase() || '';
-    const tagName = element.tagName?.toLowerCase() || '';
+    // Safely convert className to string (it can be a DOMTokenList or string)
+    const className = element?.className 
+      ? (typeof element.className === 'string' 
+          ? element.className 
+          : element.className.toString()).toLowerCase() 
+      : '';
+    const tagName = element?.tagName?.toLowerCase() || '';
     
     // Netflix patterns
     if (className.includes('billboard') || className.includes('slider') || 
@@ -199,7 +204,8 @@ class MovieRatingRenderer {
       '.titleName',
       'h2',
       'h3',
-      '[class*="title"]'
+      '[class*="title"]',
+      '[class*="fallback-text"]'
     ];
     
     for (const selector of titleSelectors) {
