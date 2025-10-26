@@ -1,11 +1,10 @@
 // Background Service Worker for ScrollRate Extension
 
-// Load API key from config.js (for local development)
-// Falls back to user's stored key or empty string
-import { OMDB_API_KEY } from './config.js';
-
-
 const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+
+// Default API key for local development (users should provide their own in settings)
+const OMDB_API_KEY = '70e06df6';
+
 
 // Initialize default settings
 chrome.runtime.onInstalled.addListener(() => {
@@ -22,7 +21,7 @@ chrome.runtime.onInstalled.addListener(() => {
 // Fetch movie rating from OMDb API (provides IMDb and Rotten Tomatoes scores)
 async function fetchMovieRating(title, year = null) {
   try {
-    // Get API key from storage
+    // Get API key from storage, fall back to default if not set
     const data = await chrome.storage.sync.get(['omdbApiKey']);
     const apiKey = data.omdbApiKey || OMDB_API_KEY;
     

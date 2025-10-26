@@ -28,24 +28,18 @@ ScrollRate enhances your movie browsing experience by showing ratings directly o
    - Sign up for a free API key
    - Copy your API key
 
-3. **Create config.js**
-   - Create the config.js in the root of the project
-   - Replace the following code with your API key:
-      export const OMDB_API_KEY = ''; // Replace with your API key
-
-
-4. **Load the Extension in Chrome**
+3. **Load the Extension in Chrome**
    - Open Chrome and navigate to `chrome://extensions/`
    - Enable "Developer mode" (toggle in the top right)
    - Click "Load unpacked"
    - Select the `netflix-movie-rating-extension` folder
 
-5. **Configure API Key** (optional)
+4. **Configure API Key** (optional)
    - Click the ScrollRate icon in your Chrome toolbar
    - Enter your OMDb API key in the settings panel
    - Click "Save"
 
-6. **Add Extension Icons**
+5. **Add Extension Icons**
    - Create an `icons` folder in the extension directory
    - Add three PNG images:
      - `icon16.png` (16x16 pixels)
