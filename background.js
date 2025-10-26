@@ -1,13 +1,11 @@
 // Background Service Worker for ScrollRate Extension
 
-const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
-
 // Load API key from config.js (for local development)
 // Falls back to user's stored key or empty string
-let OMDB_API_KEY = '';
+import { OMDB_API_KEY } from './config.js';
 
-// Try to load from config.js (only works in development environment)
-// In production, users will provide their own key via popup settings
+
+const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 
 // Initialize default settings
 chrome.runtime.onInstalled.addListener(() => {
