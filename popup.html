@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ScrollRate Settings</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 320px;
+      min-height: 420px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    body.dark-mode {
+      background: linear-gradient(135deg, #2d1b4e 0%, #1a0f2e 100%);
+    }
+
+    .container {
+      background: white;
+      padding: 20px;
+      border-radius: 12px 12px 0 0;
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    body.dark-mode .container {
+      background: #1a1a2e;
+      color: #e0e0e0;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .header h1 {
+      font-size: 24px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 8px;
+    }
+
+    .header p {
+      color: #666;
+      font-size: 14px;
+    }
+
+    body.dark-mode .header p {
+      color: #aaa;
+    }
+
+    .section {
+      margin-bottom: 24px;
+    }
+
+    .section-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    body.dark-mode .section-title {
+      color: #e0e0e0;
+    }
+
+    .setting-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px;
+      background: #f8f9fa;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      transition: all 0.2s ease;
+    }
+
+    body.dark-mode .setting-item {
+      background: #16213e;
+    }
+
+    .setting-item:hover {
+      background: #e9ecef;
+    }
+
+    body.dark-mode .setting-item:hover {
+      background: #0f3460;
+    }
+
+    .setting-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+    }
+
+    .setting-label span {
+      font-size: 14px;
+      color: #333;
+    }
+
+    body.dark-mode .setting-label span {
+      color: #e0e0e0;
+    }
+
+    /* Toggle Switch */
+    .toggle {
+      position: relative;
+      width: 44px;
+      height: 24px;
+    }
+
+    .toggle input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .toggle-slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .3s;
+      border-radius: 24px;
+    }
+
+    .toggle-slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .3s;
+      border-radius: 50%;
+    }
+
+    .toggle input:checked + .toggle-slider {
+      background-color: #667eea;
+    }
+
+    .toggle input:checked + .toggle-slider:before {
+      transform: translateX(20px);
+    }
+
+    /* Badge Size Selector */
+    .badge-size-group {
+      display: flex;
+      gap: 8px;
+    }
+
+    .badge-size-option {
+      flex: 1;
+      padding: 10px;
+      text-align: center;
+      background: #f8f9fa;
+      border: 2px solid transparent;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    body.dark-mode .badge-size-option {
+      background: #16213e;
+      color: #e0e0e0;
+    }
+
+    .badge-size-option:hover {
+      background: #e9ecef;
+    }
+
+    body.dark-mode .badge-size-option:hover {
+      background: #0f3460;
+    }
+
+    .badge-size-option.active {
+      border-color: #667eea;
+      background: #667eea;
+      color: white;
+    }
+
+    /* API Key Section */
+    .api-key-section {
+      padding: 12px;
+      background: #fff3cd;
+      border-radius: 8px;
+      border-left: 4px solid #ffc107;
+    }
+
+    body.dark-mode .api-key-section {
+      background: #2d2d3a;
+      border-left-color: #ffc107;
+    }
+
+    .api-key-section p {
+      font-size: 12px;
+      color: #856404;
+      margin-bottom: 8px;
+    }
+
+    body.dark-mode .api-key-section p {
+      color: #e0e0e0;
+    }
+
+    .api-key-section a {
+      color: #667eea;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .api-key-input {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 12px;
+      margin-top: 8px;
+    }
+
+    /* Footer */
+    .footer {
+      padding: 16px 20px;
+      background: white;
+      text-align: center;
+      border-top: 1px solid #e9ecef;
+    }
+
+    body.dark-mode .footer {
+      background: #1a1a2e;
+      border-top-color: #0f3460;
+    }
+
+    .footer p {
+      font-size: 11px;
+      color: #666;
+    }
+
+    body.dark-mode .footer p {
+      color: #aaa;
+    }
+
+    .status-message {
+      padding: 8px 12px;
+      background: #d4edda;
+      color: #155724;
+      border-radius: 4px;
+      font-size: 12px;
+      margin-top: 12px;
+      display: none;
+    }
+
+    .status-message.show {
+      display: block;
+      animation: slideIn 0.3s ease;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Transparency Slider */
+    .slider-container {
+      margin-top: 8px;
+    }
+
+    .slider {
+      width: 100%;
+      height: 6px;
+      border-radius: 3px;
+      background: #ddd;
+      outline: none;
+      -webkit-appearance: none;
+    }
+
+    body.dark-mode .slider {
+      background: #0f3460;
+    }
+
+    .slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #667eea;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .slider::-webkit-slider-thumb:hover {
+      background: #5568d3;
+      transform: scale(1.1);
+    }
+
+    .slider::-moz-range-thumb {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #667eea;
+      cursor: pointer;
+      border: none;
+    }
+
+    .slider-value {
+      text-align: center;
+      font-size: 11px;
+      color: #666;
+      margin-top: 4px;
+    }
+
+    body.dark-mode .slider-value {
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🎬 ScrollRate</h1>
+      <p>Movie ratings at your fingertips</p>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Rating Sources</div>
+      
+      <div class="setting-item">
+        <div class="setting-label">
+          <span>IMDb Ratings</span>
+        </div>
+        <label class="toggle">
+          <input type="checkbox" id="imdbEnabled">
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+
+      <div class="setting-item">
+        <div class="setting-label">
+          <span>Rotten Tomatoes</span>
+        </div>
+        <label class="toggle">
+          <input type="checkbox" id="rottenTomatoesEnabled">
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Badge Size</div>
+      <div class="badge-size-group">
+        <div class="badge-size-option" data-size="small">Small</div>
+        <div class="badge-size-option" data-size="medium">Medium</div>
+        <div class="badge-size-option" data-size="large">Large</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Badge Transparency</div>
+      <div class="slider-container">
+        <input type="range" min="0" max="100" value="85" class="slider" id="transparencySlider">
+        <div class="slider-value" id="transparencyValue">85%</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Appearance</div>
+      
+      <div class="setting-item">
+        <div class="setting-label">
+          <span>Dark Mode</span>
+        </div>
+        <label class="toggle">
+          <input type="checkbox" id="darkModeEnabled">
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <!-- <div class="section">
+      <div class="api-key-section">
+        <p><strong>Get your free OMDb API key:</strong></p>
+        <p>Visit <a href="https://www.omdbapi.com/apikey.aspx" target="_blank">omdbapi.com</a> to get your free API key for better ratings access.</p>
+        <input type="text" id="apiKeyInput" class="api-key-input" placeholder="Enter your API key (optional)">
+        <div id="statusMessage" class="status-message"></div>
+      </div>
+    </div> -->
+  </div>
+
+  <div class="footer">
+    <p>Made with ❤️ for movie lovers</p>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
+

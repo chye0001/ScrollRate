@@ -1,0 +1,54 @@
+{
+  "manifest_version": 3,
+  "name": "ScrollRate",
+  "version": "1.0.0",
+  "description": "Automatically displays movie ratings from IMDb and Rotten Tomatoes while browsing streaming platforms",
+  "permissions": [
+    "storage",
+    "activeTab",
+    "alarms"
+  ],
+  "host_permissions": [
+    "http://*.netflix.com/*",
+    "https://*.netflix.com/*",
+    "http://*.amazon.com/*",
+    "https://*.amazon.com/*",
+    "http://*.imdb.com/*",
+    "https://*.imdb.com/*",
+    "http://*.letterboxd.com/*",
+    "https://*.letterboxd.com/*",
+    "http://omdbapi.com/*",
+    "https://omdbapi.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.netflix.com/*",
+        "*://*.amazon.com/Prime*",
+        "*://*.imdb.com/*",
+        "*://*.letterboxd.com/*",
+        "*://*.disney.com/*",
+        "*://*.hulu.com/*"
+      ],
+      "js": ["content.js"],
+      "css": ["styles.css"]
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}
+
